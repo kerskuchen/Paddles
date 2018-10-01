@@ -4,7 +4,12 @@
 A [Pong](https://en.wikipedia.org/wiki/Pong) clone made in [Unity](https://unity3d.com/) for learning purposes.
 
 
-The program is licensed under the [Unlicense](http://unlicense.org/) license and is therefore public domain.
+Everything in this project except for the following third party assets
+
+* `Assets/Fonts/Reality Hyper Regular.ttf`
+
+is licensed under the [Unlicense](http://unlicense.org/) license and is therefore public domain. The license files for the above third party assets that are not public domain can be found in their respective residing folders.
+
 
 Running the project requires the following free Unity assets to be imported first:
 * [Colorblind Effect](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/colorblind-effect-76360)

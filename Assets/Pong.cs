@@ -21,11 +21,14 @@ public class Pong : MonoBehaviour
     private bool hitPaddleRight = false;
 
     private MatchState matchState;
+    private AudioSource sound;
 
     void Start()
     {
-        this.matchState = this.globalState.GetComponent<MatchState>();
+        this.sound = this.GetComponent<AudioSource>();
         this.pongCollider = GetComponent<Rigidbody2D>();
+        this.matchState = this.globalState.GetComponent<MatchState>();
+
         this.pongCollider.velocity = new Vector2(-10, 10);
     }
 
@@ -92,7 +95,10 @@ public class Pong : MonoBehaviour
         {
             // Change direction
             this.pongCollider.velocity = Vector2.Reflect(this.pongCollider.velocity, normal);
+
             this.GetComponent<Glower>().StartGlow();
+            sound.pitch = Random.Range(0.99f, 1.01f);
+            sound.PlayOneShot(sound.clip);
         }
 
         // Handle scoring flags
