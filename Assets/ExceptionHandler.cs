@@ -24,7 +24,7 @@ public class ExceptionHandler : MonoBehaviour
 
     void HandleException(string condition, string stackTrace, LogType type)
     {
-        if (type == LogType.Exception)
+        if (type == LogType.Exception || type == LogType.Error || type == LogType.Assert)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

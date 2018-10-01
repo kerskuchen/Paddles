@@ -13,7 +13,6 @@ public class Pong : MonoBehaviour
     public GameObject globalState;
 
     private Rigidbody2D pongCollider;
-    private Material pongMaterial;
 
     private bool hitWallLeft = false;
     private bool hitPaddleLeft = false;
@@ -24,7 +23,6 @@ public class Pong : MonoBehaviour
     void Start()
     {
         this.pongCollider = GetComponent<Rigidbody2D>();
-        this.pongMaterial = GetComponent<Renderer>().material;
         this.pongCollider.velocity = new Vector2(-10, 10);
     }
 
