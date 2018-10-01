@@ -5,6 +5,11 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+
+# Third party assets
+Assets/Colorblind Effect
+Assets/PostProcessing
+
 # Visual Studio cache directory
 .vs/
 
