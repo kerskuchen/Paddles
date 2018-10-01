@@ -97,7 +97,7 @@ public class Pong : MonoBehaviour
             this.pongCollider.velocity = Vector2.Reflect(this.pongCollider.velocity, normal);
 
             this.GetComponent<Glower>().StartGlow();
-            sound.pitch = Random.Range(0.99f, 1.01f);
+            //sound.pitch = Random.Range(0.99f, 1.01f);
             sound.PlayOneShot(sound.clip);
         }
 

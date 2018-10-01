@@ -15,7 +15,6 @@ public class FontGlower : MonoBehaviour
     private Material material;
     private Text text;
 
-    // Use this for initialization
     void Start()
     {
         this.text = GetComponent<Text>();
@@ -24,8 +23,6 @@ public class FontGlower : MonoBehaviour
         this.animationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 0));
     }
 
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         float alpha = this.animationCurve.Evaluate(Time.time);
