@@ -14,8 +14,8 @@ public class MatchState : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        this.scoreLeft.text = "2";
-        this.scoreRight.text = "3";
+        this.scoreLeft.text = "0";
+        this.scoreRight.text = "0";
     }
 
     public void HitPaddleLeft()
@@ -30,13 +30,13 @@ public class MatchState : MonoBehaviour
     {
         this.scoreCountRight += 1;
         this.scoreRight.text = scoreCountRight.ToString();
-        this.scoreRight.gameObject.SendMessage("StartGlow");
+        this.scoreRight.GetComponent<FontGlower>().StartGlow();
     }
 
     public void HitWallRight()
     {
         this.scoreCountLeft += 1;
         this.scoreLeft.text = scoreCountLeft.ToString();
-        this.scoreLeft.gameObject.SendMessage("StartGlow");
+        this.scoreLeft.GetComponent<FontGlower>().StartGlow();
     }
 }

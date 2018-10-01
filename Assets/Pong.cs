@@ -20,8 +20,11 @@ public class Pong : MonoBehaviour
     private bool hitWallRight = false;
     private bool hitPaddleRight = false;
 
+    private MatchState matchState;
+
     void Start()
     {
+        this.matchState = this.globalState.GetComponent<MatchState>();
         this.pongCollider = GetComponent<Rigidbody2D>();
         this.pongCollider.velocity = new Vector2(-10, 10);
     }
@@ -33,28 +36,29 @@ public class Pong : MonoBehaviour
         {
             if (this.hitPaddleLeft)
             {
-                this.globalState.SendMessage("HitPaddleLeft");
-                this.paddleLeft.gameObject.SendMessage("StartGlow");
+                this.matchState.HitPaddleLeft();
+                this.paddleLeft.GetComponent<Glower>().StartGlow();
+                this.AdjustVelocityAfterPaddleHit(paddleLeft.transform.position);
             }
             else
             {
-                this.globalState.SendMessage("HitWallLeft");
-                this.wallLeft.gameObject.SendMessage("StartGlow");
+                this.matchState.HitWallLeft();
+                this.wallLeft.GetComponent<Glower>().StartGlow();
             }
         }
         if (this.hitWallRight)
         {
             if (this.hitPaddleRight)
             {
-                this.globalState.SendMessage("HitPaddleRight");
-                this.paddleRight.gameObject.SendMessage("StartGlow");
+                this.matchState.HitPaddleRight();
+                this.paddleRight.GetComponent<Glower>().StartGlow();
+                this.AdjustVelocityAfterPaddleHit(paddleRight.transform.position);
             }
             else
             {
-                this.globalState.SendMessage("HitWallRight");
-                this.wallRight.gameObject.SendMessage("StartGlow");
+                this.matchState.HitWallRight();
+                this.wallRight.GetComponent<Glower>().StartGlow();
             }
-
         }
 
         // Reset flags
@@ -72,12 +76,12 @@ public class Pong : MonoBehaviour
         if (collider.gameObject == this.wallTop)
         {
             normal = Vector2.down;
-            collider.gameObject.SendMessage("StartGlow");
+            collider.GetComponent<Glower>().StartGlow();
         }
         else if (collider.gameObject == this.wallBottom)
         {
             normal = Vector2.up;
-            collider.gameObject.SendMessage("StartGlow");
+            collider.GetComponent<Glower>().StartGlow();
         }
         else if (collider.gameObject == this.wallLeft)
             normal = Vector2.right;
@@ -88,7 +92,7 @@ public class Pong : MonoBehaviour
         {
             // Change direction
             this.pongCollider.velocity = Vector2.Reflect(this.pongCollider.velocity, normal);
-            this.gameObject.SendMessage("StartGlow");
+            this.GetComponent<Glower>().StartGlow();
         }
 
         // Handle scoring flags
@@ -100,5 +104,13 @@ public class Pong : MonoBehaviour
             this.hitWallRight = true;
         else if (collider.gameObject == this.paddleRight)
             this.hitPaddleRight = true;
+    }
+
+    // Adjust direction depending on wheter we hit the center or the edge of the paddle
+    void AdjustVelocityAfterPaddleHit(Vector2 paddlePos)
+    {
+        float yVel = this.transform.position.y - paddlePos.y;
+        Vector2 newVel = new Vector2(this.pongCollider.velocity.x, 5 * yVel);
+        this.pongCollider.velocity = newVel;
     }
 }

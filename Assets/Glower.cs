@@ -35,7 +35,7 @@ public class Glower : MonoBehaviour
         this.material.SetColor("_EmissionColor", finalColor);
     }
 
-    void StartGlow()
+    public void StartGlow()
     {
         this.animationCurve = new AnimationCurve(
             new Keyframe(Time.time, 0),
