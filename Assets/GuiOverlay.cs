@@ -138,7 +138,7 @@ public class GuiOverlay : MonoBehaviour
                 this.playButton.OnSelect(null);
                 break;
         }
-        matchState.ResetMatch();
+        matchState.ResetMatch(true);
         this.pong.ResetPosition();
 
         // Fade in
@@ -152,6 +152,7 @@ public class GuiOverlay : MonoBehaviour
         switch (transition)
         {
             case Transition.ToGame:
+                matchState.ResetMatch(false);
                 yield return new WaitForSeconds(0.5f);
                 this.readySetGo.text = "READY";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();

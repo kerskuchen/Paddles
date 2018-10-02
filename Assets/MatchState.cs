@@ -7,56 +7,94 @@ public class MatchState : MonoBehaviour
 {
     public Text scoreLeft;
     public Text scoreRight;
+    public Text winLose;
 
     public PaddleMover paddleLeft;
     public PaddleMover paddleRight;
 
-    private int scoreCountLeft = 0;
-    private int scoreCountRight = 0;
+    int scoreCountLeft = 0;
+    int scoreCountRight = 0;
+
+    bool isAiMatch = true;
+
+    const int NUM_HITS_TO_WIN = 10;
 
     void Start()
     {
-        ResetMatch();
+        ResetMatch(isAiMatch);
     }
 
-    public void ResetMatch()
+    public void ResetMatch(bool isAiMatch)
     {
-        paddleLeft.SetAiActive(true);
-        paddleRight.SetAiActive(true);
+        GameObject.Find("Pong").GetComponent<Glower>().FadeIn();
+        this.isAiMatch = isAiMatch;
+
+        paddleLeft.SetAIFast(true);
+        paddleRight.SetAIFast(true);
+        this.paddleLeft.SetAIActive(true);
+        this.paddleRight.SetAIActive(true);
 
         this.scoreCountLeft = 0;
         this.scoreCountRight = 0;
         this.scoreLeft.text = "0";
         this.scoreRight.text = "0";
+
+        this.winLose.text = "";
     }
 
     public void HitPaddleLeft()
     {
-        paddleLeft.SetAiActive(false);
-        paddleRight.SetAiActive(true);
+        paddleLeft.SetAIFast(false);
+        paddleRight.SetAIFast(true);
     }
 
     public void HitPaddleRight()
     {
-        paddleLeft.SetAiActive(true);
-        paddleRight.SetAiActive(false);
+        paddleLeft.SetAIFast(true);
+        paddleRight.SetAIFast(false);
     }
 
     public void HitWallLeft()
     {
-        paddleLeft.SetAiActive(false);
-        paddleRight.SetAiActive(true);
-        this.scoreCountRight += 1;
-        this.scoreRight.text = scoreCountRight.ToString();
-        this.scoreRight.GetComponent<FontGlower>().StartGlow();
+        paddleLeft.SetAIFast(false);
+        paddleRight.SetAIFast(true);
+        if (this.scoreCountLeft < NUM_HITS_TO_WIN && this.scoreCountRight < NUM_HITS_TO_WIN)
+        {
+            this.scoreCountRight += 1;
+            this.scoreRight.text = scoreCountRight.ToString();
+            this.scoreRight.GetComponent<FontGlower>().StartGlow();
+
+            if (this.scoreCountRight == NUM_HITS_TO_WIN && !this.isAiMatch)
+            {
+                GameObject.Find("Pong").GetComponent<Glower>().FadeOut();
+                this.paddleLeft.isPlayerControlled = false;
+                this.paddleLeft.SetAIActive(false);
+                this.paddleRight.SetAIActive(false);
+                this.winLose.text = "YOU LOST!";
+                this.winLose.GetComponent<FontGlower>().StartGlow();
+            }
+        }
     }
 
     public void HitWallRight()
     {
-        paddleLeft.SetAiActive(true);
-        paddleRight.SetAiActive(false);
-        this.scoreCountLeft += 1;
-        this.scoreLeft.text = scoreCountLeft.ToString();
-        this.scoreLeft.GetComponent<FontGlower>().StartGlow();
+        paddleLeft.SetAIFast(true);
+        paddleRight.SetAIFast(false);
+        if (this.scoreCountLeft < NUM_HITS_TO_WIN && this.scoreCountRight < NUM_HITS_TO_WIN)
+        {
+            this.scoreCountLeft += 1;
+            this.scoreLeft.text = scoreCountLeft.ToString();
+            this.scoreLeft.GetComponent<FontGlower>().StartGlow();
+
+            if (this.scoreCountLeft == NUM_HITS_TO_WIN && !this.isAiMatch)
+            {
+                GameObject.Find("Pong").GetComponent<Glower>().FadeOut();
+                this.paddleLeft.isPlayerControlled = false;
+                this.paddleLeft.SetAIActive(false);
+                this.paddleRight.SetAIActive(false);
+                this.winLose.text = "YOU WON!";
+                this.winLose.GetComponent<FontGlower>().StartGlow();
+            }
+        }
     }
 }

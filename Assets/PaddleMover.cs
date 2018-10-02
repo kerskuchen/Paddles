@@ -17,9 +17,15 @@ public class PaddleMover : MonoBehaviour
     const float DEACCEL = 400;
     const float TURN_ACC_MULTIPLIER = 4;
 
+    bool aiFast = true;
     bool aiActive = true;
 
-    public void SetAiActive(bool active)
+    public void SetAIFast(bool fast)
+    {
+        this.aiFast = fast;
+    }
+
+    public void SetAIActive(bool active)
     {
         this.aiActive = active;
     }
@@ -32,9 +38,9 @@ public class PaddleMover : MonoBehaviour
     void FixedUpdate()
     {
         float axisValue = 0.0f;
-        if (isPlayerControlled)
+        if (this.isPlayerControlled)
             axisValue = doUserInput();
-        else
+        else if (this.aiActive)
             axisValue = doAIInput();
 
         doMovement(axisValue);
@@ -55,7 +61,7 @@ public class PaddleMover : MonoBehaviour
     float doAIInput()
     {
         float multiplier = 1.0f;
-        if (!this.aiActive)
+        if (!this.aiFast)
             multiplier = 0.1f;
 
 

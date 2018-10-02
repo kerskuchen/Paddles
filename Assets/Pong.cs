@@ -49,6 +49,23 @@ public class Pong : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (this.GetComponent<Glower>().IsInvisible())
+        {
+            ResetPosition();
+        }
+
+        // Safety boundchecks
+        if (Mathf.Abs(this.transform.position.y) > 6.5)
+        {
+            this.pongCollider.velocity =
+                new Vector2(this.pongCollider.velocity.x, -this.pongCollider.velocity.y);
+        }
+        if (Mathf.Abs(this.transform.position.x) > 10.5)
+        {
+            this.pongCollider.velocity =
+                new Vector2(-this.pongCollider.velocity.x, this.pongCollider.velocity.y);
+        }
+
         // Send message to global state if necessary
         if (this.hitWallLeft)
         {
@@ -62,6 +79,11 @@ public class Pong : MonoBehaviour
             {
                 this.matchState.HitWallLeft();
                 this.wallLeft.GetComponent<Glower>().StartGlow();
+
+                // Reset x speed to base speed when hitting wall
+                this.pongCollider.velocity =
+                    new Vector2(BASE_PONG_X_SPEED * Mathf.Sign(this.pongCollider.velocity.x),
+                                this.pongCollider.velocity.y);
             }
         }
         if (this.hitWallRight)
@@ -76,6 +98,11 @@ public class Pong : MonoBehaviour
             {
                 this.matchState.HitWallRight();
                 this.wallRight.GetComponent<Glower>().StartGlow();
+
+                // Reset x speed to base speed when hitting wall
+                this.pongCollider.velocity =
+                    new Vector2(BASE_PONG_X_SPEED * Mathf.Sign(this.pongCollider.velocity.x),
+                                this.pongCollider.velocity.y);
             }
         }
 
@@ -100,6 +127,7 @@ public class Pong : MonoBehaviour
         {
             normal = Vector2.up;
             collider.GetComponent<Glower>().StartGlow();
+
         }
         else if (collider.gameObject == this.wallLeft)
             normal = Vector2.right;
@@ -112,8 +140,7 @@ public class Pong : MonoBehaviour
             this.pongCollider.velocity = Vector2.Reflect(this.pongCollider.velocity, normal);
 
             this.GetComponent<Glower>().StartGlow();
-            //sound.pitch = Random.Range(0.99f, 1.01f);
-            //sound.PlayOneShot(sound.clip);
+            // sound.PlayOneShot(sound.clip);
         }
 
         // Handle scoring flags
@@ -131,7 +158,14 @@ public class Pong : MonoBehaviour
     void AdjustVelocityAfterPaddleHit(Vector2 paddlePos)
     {
         float yVel = this.transform.position.y - paddlePos.y;
-        Vector2 newVel = new Vector2(this.pongCollider.velocity.x, 5 * yVel);
+        float xVel = ClampAbsolute(1.1f * this.pongCollider.velocity.x, 50.0f);
+        Vector2 newVel = new Vector2(xVel, 5 * yVel);
         this.pongCollider.velocity = newVel;
+    }
+
+    float ClampAbsolute(float value, float absoluteMax)
+    {
+        float absVal = Mathf.Clamp(Mathf.Abs(value), 0, absoluteMax);
+        return Mathf.Sign(value) * absVal;
     }
 }
