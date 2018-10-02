@@ -10,18 +10,6 @@ public class ExceptionHandler : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-			Application.Quit();
-#endif
-        }
-    }
-
     void HandleException(string condition, string stackTrace, LogType type)
     {
         if (type == LogType.Exception || type == LogType.Error || type == LogType.Assert)
