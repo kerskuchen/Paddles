@@ -10,7 +10,7 @@ public class PaddleMover : MonoBehaviour
     float vel = 0.0f;
     float pos = 0.0f;
     float aiAcc = 0.0f;
-    float paddleHalfSize = 0;
+    float paddleSize = 3.5f;
 
     const float MAX_VELOCITY = 15;
     const float ACCEL = 100;
@@ -32,7 +32,6 @@ public class PaddleMover : MonoBehaviour
 
     void Start()
     {
-        this.paddleHalfSize = this.GetComponent<BoxCollider2D>().size.y + 0.75f;
     }
 
     void FixedUpdate()
@@ -66,7 +65,7 @@ public class PaddleMover : MonoBehaviour
 
 
         float distance = pong.transform.position.y - this.transform.position.y;
-        if (Mathf.Abs(distance) > paddleHalfSize / 2)
+        if (Mathf.Abs(distance) > paddleSize / 2)
             this.aiAcc = Mathf.Lerp(this.aiAcc, Mathf.Sign(distance), 0.02f * multiplier);
         else
             this.aiAcc = Mathf.Lerp(this.aiAcc, 0, 0.2f);
@@ -104,7 +103,7 @@ public class PaddleMover : MonoBehaviour
 
         this.pos += Time.fixedDeltaTime * this.vel;
 
-        float upperBound = 6.0f - paddleHalfSize;
+        float upperBound = 6.0f - paddleSize / 2;
         float lowerBound = -upperBound;
         if (this.pos > upperBound)
         {
