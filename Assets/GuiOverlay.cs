@@ -12,9 +12,17 @@ public class GuiOverlay : MonoBehaviour
     public Button exitButton;
     public Image menuOverlay;
     public Image screenTransitionFader;
+    public MatchState matchState;
 
-    private const float MENU_OVERLAY_DEFAULT_ALPHA = 0.7f;
-    private State state = State.MainMenu;
+    public Glower paddleLeft;
+    public Pong pong;
+    public Text readySetGo;
+
+    const float MENU_OVERLAY_DEFAULT_ALPHA = 0.7f;
+    const float MENU_DEFAULT_FADE_DURATION = 0.2f;
+    State state = State.MainMenu;
+
+    Coroutine lastCoroutine = null;
 
     enum State { InGame, MainMenu }
     enum Transition { ToGame, ToMainMenu, ToDesktop }
@@ -31,21 +39,44 @@ public class GuiOverlay : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             if (this.state == State.MainMenu)
-                StartCoroutine(ScreenTransition(0.1f, Transition.ToDesktop));
-            if (this.state == State.InGame)
-                StartCoroutine(ScreenTransition(0.1f, Transition.ToMainMenu));
+            {
+                FadeToDesktop();
+            }
+            else if (this.state == State.InGame)
+            {
+                FadeToMainMenu();
+            }
         }
     }
 
+    public void FadeToMainMenu()
+    {
+        if (this.lastCoroutine != null)
+            StopCoroutine(this.lastCoroutine);
+        this.state = State.MainMenu;
+        this.readySetGo.text = "";
+        this.lastCoroutine = StartCoroutine(ScreenTransition(MENU_DEFAULT_FADE_DURATION, Transition.ToMainMenu));
+    }
 
     public void FadeInGame()
     {
-        StartCoroutine(ScreenTransition(0.1f, Transition.ToGame));
+        if (this.lastCoroutine != null)
+            StopCoroutine(this.lastCoroutine);
+        this.state = State.InGame;
+        this.playButton.interactable = false;
+        this.exitButton.interactable = false;
+        this.readySetGo.text = "";
+        this.lastCoroutine = StartCoroutine(ScreenTransition(MENU_DEFAULT_FADE_DURATION, Transition.ToGame));
     }
 
     public void FadeToDesktop()
     {
-        StartCoroutine(ScreenTransition(0.1f, Transition.ToDesktop));
+        if (this.lastCoroutine != null)
+            StopCoroutine(this.lastCoroutine);
+        this.playButton.interactable = false;
+        this.exitButton.interactable = false;
+        this.readySetGo.text = "";
+        this.lastCoroutine = StartCoroutine(ScreenTransition(MENU_DEFAULT_FADE_DURATION, Transition.ToDesktop));
     }
 
 
@@ -85,13 +116,16 @@ public class GuiOverlay : MonoBehaviour
 
                 this.playButton.gameObject.SetActive(true);
                 this.exitButton.gameObject.SetActive(true);
+                this.playButton.interactable = true;
+                this.exitButton.interactable = true;
                 SetImageAlpha(this.menuOverlay, MENU_OVERLAY_DEFAULT_ALPHA);
 
                 // Reselect play button so that it is highlighted
-                EventSystem.current.SetSelectedGameObject(this.playButton.gameObject);
                 this.playButton.OnSelect(null);
                 break;
         }
+        matchState.ResetMatch();
+        this.pong.ResetPosition();
 
         // Fade in
         for (float alpha = 1; alpha >= 0; alpha -= Time.deltaTime / fadeDuration)
@@ -104,10 +138,31 @@ public class GuiOverlay : MonoBehaviour
         switch (transition)
         {
             case Transition.ToGame:
-                this.state = State.InGame;
+                yield return new WaitForSeconds(0.5f);
+                this.readySetGo.text = "READY";
+                this.readySetGo.GetComponent<FontGlower>().StartGlow();
+                this.paddleLeft.StartGlow();
+                yield return new WaitForSeconds(0.5f);
+                this.paddleLeft.StartGlow();
+                yield return new WaitForSeconds(0.5f);
+                this.readySetGo.text = "SET";
+                this.readySetGo.GetComponent<FontGlower>().StartGlow();
+                this.paddleLeft.StartGlow();
+                yield return new WaitForSeconds(0.5f);
+                this.paddleLeft.StartGlow();
+                yield return new WaitForSeconds(0.5f);
+                this.paddleLeft.StartGlow();
+                this.readySetGo.text = "GO!";
+                this.readySetGo.GetComponent<FontGlower>().StartGlow();
+                this.paddleLeft.StartGlow();
+                this.pong.StartMoving();
+                yield return new WaitForSeconds(1);
+                this.readySetGo.text = "";
                 break;
             case Transition.ToMainMenu:
-                this.state = State.MainMenu;
+                this.pong.ResetPosition();
+                yield return new WaitForSeconds(0.3f);
+                this.pong.StartMoving();
                 break;
         }
     }

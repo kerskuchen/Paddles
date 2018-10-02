@@ -23,13 +23,28 @@ public class Pong : MonoBehaviour
     private MatchState matchState;
     private AudioSource sound;
 
+    private const float BASE_PONG_X_SPEED = 10.0f;
+
     void Start()
     {
         this.sound = this.GetComponent<AudioSource>();
-        this.pongCollider = GetComponent<Rigidbody2D>();
         this.matchState = this.globalState.GetComponent<MatchState>();
+        ResetPosition();
+        StartMoving();
+    }
 
-        this.pongCollider.velocity = new Vector2(-10, 10);
+    public void ResetPosition()
+    {
+        this.transform.position = new Vector2(0, 0);
+        this.pongCollider = GetComponent<Rigidbody2D>();
+        this.pongCollider.velocity = new Vector2(0, 0);
+    }
+
+    public void StartMoving()
+    {
+        this.pongCollider = GetComponent<Rigidbody2D>();
+        float yVel = Random.Range(0.1f, 0.5f);
+        this.pongCollider.velocity = BASE_PONG_X_SPEED * new Vector2(1, yVel);
     }
 
     void FixedUpdate()

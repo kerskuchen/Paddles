@@ -11,9 +11,15 @@ public class MatchState : MonoBehaviour
     private int scoreCountLeft = 0;
     private int scoreCountRight = 0;
 
-    // Use this for initialization
     void Start()
     {
+        ResetMatch();
+    }
+
+    public void ResetMatch()
+    {
+        this.scoreCountLeft = 0;
+        this.scoreCountRight = 0;
         this.scoreLeft.text = "0";
         this.scoreRight.text = "0";
     }
