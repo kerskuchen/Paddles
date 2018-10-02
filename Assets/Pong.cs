@@ -113,7 +113,7 @@ public class Pong : MonoBehaviour
 
             this.GetComponent<Glower>().StartGlow();
             //sound.pitch = Random.Range(0.99f, 1.01f);
-            sound.PlayOneShot(sound.clip);
+            //sound.PlayOneShot(sound.clip);
         }
 
         // Handle scoring flags

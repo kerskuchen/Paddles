@@ -14,13 +14,16 @@ public class GuiOverlay : MonoBehaviour
     public Image screenTransitionFader;
     public MatchState matchState;
 
-    public Glower paddleLeft;
+    public PaddleMover paddleLeft;
+    public PaddleMover paddleRight;
+
     public Pong pong;
     public Text readySetGo;
 
     const float MENU_OVERLAY_DEFAULT_ALPHA = 0.7f;
     const float MENU_DEFAULT_FADE_DURATION = 0.2f;
     State state = State.MainMenu;
+    Glower paddleLeftGlower;
 
     Coroutine lastCoroutine = null;
 
@@ -29,6 +32,7 @@ public class GuiOverlay : MonoBehaviour
 
     void Start()
     {
+        this.paddleLeftGlower = paddleLeft.gameObject.GetComponent<Glower>();
         this.scoreLeft.gameObject.SetActive(false);
         this.scoreRight.gameObject.SetActive(false);
         SetImageAlpha(menuOverlay, MENU_OVERLAY_DEFAULT_ALPHA);
@@ -53,6 +57,11 @@ public class GuiOverlay : MonoBehaviour
     {
         if (this.lastCoroutine != null)
             StopCoroutine(this.lastCoroutine);
+
+        paddleLeft.isPlayerControlled = false;
+        paddleLeft.Reset();
+        paddleRight.Reset();
+
         this.state = State.MainMenu;
         this.readySetGo.text = "";
         this.lastCoroutine = StartCoroutine(ScreenTransition(MENU_DEFAULT_FADE_DURATION, Transition.ToMainMenu));
@@ -62,6 +71,11 @@ public class GuiOverlay : MonoBehaviour
     {
         if (this.lastCoroutine != null)
             StopCoroutine(this.lastCoroutine);
+
+        paddleLeft.isPlayerControlled = true;
+        paddleLeft.Reset();
+        paddleRight.Reset();
+
         this.state = State.InGame;
         this.playButton.interactable = false;
         this.exitButton.interactable = false;
@@ -141,20 +155,20 @@ public class GuiOverlay : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 this.readySetGo.text = "READY";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
                 this.readySetGo.text = "SET";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 this.readySetGo.text = "GO!";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();
-                this.paddleLeft.StartGlow();
+                this.paddleLeftGlower.StartGlow();
                 this.pong.StartMoving();
                 yield return new WaitForSeconds(1);
                 this.readySetGo.text = "";

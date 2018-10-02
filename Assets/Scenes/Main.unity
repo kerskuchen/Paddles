@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 483749040}
   - component: {fileID: 483749039}
   - component: {fileID: 483749043}
+  - component: {fileID: 483749044}
   m_Layer: 0
   m_Name: PaddleRight
   m_TagString: Untagged
@@ -483,6 +484,19 @@ MonoBehaviour:
   glowIntensity: 2
   glowTime: 0.25
   glowStartRatio: 0.3
+--- !u!114 &483749044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 483749038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39297fa14d386734b9b5a438b17abd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerControlled: 0
+  pong: {fileID: 1452867206}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1178,7 @@ GameObject:
   - component: {fileID: 880629973}
   - component: {fileID: 880629975}
   - component: {fileID: 880629976}
+  - component: {fileID: 880629977}
   m_Layer: 0
   m_Name: GlobalState
   m_TagString: Untagged
@@ -1208,6 +1223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreLeft: {fileID: 1273079783}
   scoreRight: {fileID: 235200008}
+  paddleLeft: {fileID: 1987075786}
+  paddleRight: {fileID: 483749044}
 --- !u!114 &880629976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,6 +1234,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 691728bd7fa405b42b0425420890d6c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &880629977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 880629972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0b9528acc5b284a87fa9222937c5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1001587334
@@ -1276,7 +1304,8 @@ MonoBehaviour:
   menuOverlay: {fileID: 113521810}
   screenTransitionFader: {fileID: 838300864}
   matchState: {fileID: 880629975}
-  paddleLeft: {fileID: 1987075785}
+  paddleLeft: {fileID: 1987075786}
+  paddleRight: {fileID: 483749044}
   pong: {fileID: 1452867207}
   readySetGo: {fileID: 10707923}
 --- !u!1 &1006005894
@@ -2110,6 +2139,7 @@ GameObject:
   - component: {fileID: 1987075782}
   - component: {fileID: 1987075781}
   - component: {fileID: 1987075785}
+  - component: {fileID: 1987075786}
   m_Layer: 0
   m_Name: PaddleLeft
   m_TagString: Untagged
@@ -2213,3 +2243,16 @@ MonoBehaviour:
   glowIntensity: 2
   glowTime: 0.25
   glowStartRatio: 0.3
+--- !u!114 &1987075786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1987075780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39297fa14d386734b9b5a438b17abd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerControlled: 0
+  pong: {fileID: 1452867206}
