@@ -5,6 +5,7 @@ using UnityEngine;
 public class Glower : MonoBehaviour
 {
     public Color baseColor;
+    public float baseIntensity = 0.0f;
     public Color glowColor;
     public float glowIntensity;
     public float glowTime;
@@ -35,7 +36,7 @@ public class Glower : MonoBehaviour
         float alpha = this.glowCurve.Evaluate(Time.time);
         alpha *= alpha;
 
-        float baseGamma = Mathf.GammaToLinearSpace(0.8f);
+        float baseGamma = Mathf.GammaToLinearSpace(0.8f + this.baseIntensity);
         // Change color
         float emission = baseGamma + this.glowIntensity * alpha;
         Color finalColor =

@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18823531, g: 0.3019608, b: 0.47450984, a: 0.7254902}
+  m_Color: {r: 0.18703875, g: 0.356093, b: 0.46400002, a: 0.72156864}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -363,8 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8a63879c59b7f48a377f47303099b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
-  glowColor: {r: 0, g: 0.6642289, b: 1, a: 1}
+  baseColor: {r: 0.5387772, g: 0.6593989, b: 0.77599996, a: 0}
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
   glowTime: 0.5
   glowStartRatio: 0.1
@@ -479,8 +479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 0.16078432, g: 0.68235296, b: 1, a: 1}
-  glowColor: {r: 0.16078432, g: 0.68235296, b: 1, a: 1}
+  baseColor: {r: 1, g: 0.6247068, b: 0, a: 1}
+  baseIntensity: 0.1
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
   glowTime: 0.25
   glowStartRatio: 0.3
@@ -544,7 +545,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.18703875, g: 0.356093, b: 0.46400002, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -599,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
   colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!1 &587942140
 GameObject:
@@ -743,7 +744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 0}
+  baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
+  baseIntensity: 0
   glowColor: {r: 1, g: 1, b: 1, a: 0}
   glowIntensity: 0.7
   glowTime: 0.5
@@ -858,7 +860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 0}
+  baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
+  baseIntensity: 0
   glowColor: {r: 1, g: 1, b: 1, a: 0}
   glowIntensity: 0.7
   glowTime: 0.5
@@ -1071,7 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.18823531, g: 0.3019608, b: 0.47450984, a: 0}
+  m_Color: {r: 0.18703875, g: 0.356093, b: 0.46400002, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1420,8 +1423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 0}
-  glowColor: {r: 1, g: 0.4292453, b: 0.4292453, a: 1}
+  baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
+  baseIntensity: 0
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 1.5
   glowTime: 0.5
   glowStartRatio: 0.1
@@ -1606,8 +1610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8a63879c59b7f48a377f47303099b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
-  glowColor: {r: 0, g: 0.6642289, b: 1, a: 1}
+  baseColor: {r: 0.5387772, g: 0.6593989, b: 0.77599996, a: 0}
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
   glowTime: 0.5
   glowStartRatio: 0.1
@@ -1753,7 +1757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseColor: {r: 1, g: 1, b: 1, a: 0}
-  glowColor: {r: 0.4575472, g: 1, b: 1, a: 0}
+  baseIntensity: 0
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
   glowTime: 0.15
   glowStartRatio: 0.3
@@ -2055,8 +2060,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 0}
-  glowColor: {r: 1, g: 0.4292453, b: 0.4292453, a: 1}
+  baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
+  baseIntensity: 0
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 1.5
   glowTime: 0.5
   glowStartRatio: 0.1
@@ -2332,8 +2338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 0.16078432, g: 0.68235296, b: 1, a: 1}
-  glowColor: {r: 0.16078432, g: 0.68235296, b: 1, a: 1}
+  baseColor: {r: 1, g: 0.6247068, b: 0, a: 1}
+  baseIntensity: 0.1
+  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
   glowTime: 0.25
   glowStartRatio: 0.3
