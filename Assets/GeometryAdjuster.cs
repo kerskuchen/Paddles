@@ -71,7 +71,7 @@ public class GeometryAdjuster : MonoBehaviour
         Mesh leftPaddleMesh = leftPaddle.GetComponent<MeshFilter>().mesh;
 
         leftPaddle.transform.localScale = Vector3.one;
-        leftPaddleCollider.size = new Vector2(0.5f, 4.0f);
+        leftPaddleCollider.size = new Vector2(0.5f, 4.25f);
         leftPaddleMesh.vertices = new Vector3[] {
             new Vector3(-0.25f, -1.25f, 0.0f),
             new Vector3(0.25f, 1.75f, 0.0f),

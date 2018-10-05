@@ -397,7 +397,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -675,7 +675,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -791,7 +791,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1354,7 +1354,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1648,8 +1648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4237cf7dca071734db6e2a942e769fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallTop: {fileID: 593224161}
-  wallBottom: {fileID: 667547910}
   wallLeft: {fileID: 1525550824}
   wallRight: {fileID: 1006005894}
   paddleLeft: {fileID: 1987075780}
@@ -1670,8 +1668,8 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Material: {fileID: 6200000, guid: cc91cf57461f4bd4a8eb8de49e47ed39, type: 2}
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -1756,7 +1754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b671dee5e1799548bdd54a254c39bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseColor: {r: 1, g: 1, b: 1, a: 0}
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
   baseIntensity: 0
   glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
   glowIntensity: 2
@@ -1991,7 +1989,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2256,7 +2254,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

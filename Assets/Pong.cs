@@ -2,8 +2,6 @@
 
 public class Pong : MonoBehaviour
 {
-    public GameObject wallTop;
-    public GameObject wallBottom;
     public GameObject wallLeft;
     public GameObject wallRight;
 
@@ -24,6 +22,7 @@ public class Pong : MonoBehaviour
     private AudioSource sound;
 
     private const float BASE_PONG_X_SPEED = 10.0f;
+    private const float BASE_PONG_X_MAX_SPEED = 50.0f;
 
     void Start()
     {
@@ -49,60 +48,40 @@ public class Pong : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (this.GetComponent<Glower>().IsInvisible())
-        {
-            ResetPosition();
-        }
+        // If we hit both a wall and a paddle, we only count the hit for the paddle
+        if (this.hitWallLeft && this.hitPaddleLeft)
+            this.hitWallLeft = false;
+        if (this.hitWallRight && this.hitPaddleRight)
+            this.hitWallRight = false;
 
-        // Safety boundchecks
-        if (Mathf.Abs(this.transform.position.y) > 6.5)
+        if (this.hitPaddleLeft)
         {
-            this.pongCollider.velocity =
-                new Vector2(this.pongCollider.velocity.x, -this.pongCollider.velocity.y);
+            this.matchState.HitPaddleLeft();
+            this.paddleLeft.GetComponent<Glower>().StartGlow();
+            this.AdjustVelocityAfterPaddleHit(paddleLeft.transform.position);
         }
-        if (Mathf.Abs(this.transform.position.x) > 10.5)
+        if (this.hitPaddleRight)
         {
-            this.pongCollider.velocity =
-                new Vector2(-this.pongCollider.velocity.x, this.pongCollider.velocity.y);
+            this.matchState.HitPaddleRight();
+            this.paddleRight.GetComponent<Glower>().StartGlow();
+            this.AdjustVelocityAfterPaddleHit(paddleRight.transform.position);
         }
+        if (this.hitWallLeft || this.hitWallRight)
+        {
+            // Reset x speed to base speed when hitting wall
+            this.pongCollider.velocity =
+                new Vector2(BASE_PONG_X_SPEED * Mathf.Sign(this.pongCollider.velocity.x),
+                            this.pongCollider.velocity.y);
 
-        // Send message to global state if necessary
-        if (this.hitWallLeft)
-        {
-            if (this.hitPaddleLeft)
-            {
-                this.matchState.HitPaddleLeft();
-                this.paddleLeft.GetComponent<Glower>().StartGlow();
-                this.AdjustVelocityAfterPaddleHit(paddleLeft.transform.position);
-            }
-            else
+            if (this.hitWallLeft)
             {
                 this.matchState.HitWallLeft();
                 this.wallLeft.GetComponent<Glower>().StartGlow();
-
-                // Reset x speed to base speed when hitting wall
-                this.pongCollider.velocity =
-                    new Vector2(BASE_PONG_X_SPEED * Mathf.Sign(this.pongCollider.velocity.x),
-                                this.pongCollider.velocity.y);
             }
-        }
-        if (this.hitWallRight)
-        {
-            if (this.hitPaddleRight)
-            {
-                this.matchState.HitPaddleRight();
-                this.paddleRight.GetComponent<Glower>().StartGlow();
-                this.AdjustVelocityAfterPaddleHit(paddleRight.transform.position);
-            }
-            else
+            if (this.hitWallRight)
             {
                 this.matchState.HitWallRight();
                 this.wallRight.GetComponent<Glower>().StartGlow();
-
-                // Reset x speed to base speed when hitting wall
-                this.pongCollider.velocity =
-                    new Vector2(BASE_PONG_X_SPEED * Mathf.Sign(this.pongCollider.velocity.x),
-                                this.pongCollider.velocity.y);
             }
         }
 
@@ -112,53 +91,39 @@ public class Pong : MonoBehaviour
 
         hitWallRight = false;
         hitPaddleRight = false;
+
+
+        // If we were faded out, we move the ball back to the origin
+        if (this.GetComponent<Glower>().IsInvisible())
+        {
+            ResetPosition();
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Handle collision response
-        Vector2 normal = Vector2.zero;
-        if (collider.gameObject == this.wallTop)
-        {
-            normal = Vector2.down;
-            collider.GetComponent<Glower>().StartGlow();
-        }
-        else if (collider.gameObject == this.wallBottom)
-        {
-            normal = Vector2.up;
-            collider.GetComponent<Glower>().StartGlow();
+        this.GetComponent<Glower>().StartGlow();
+        // sound.PlayOneShot(sound.clip);
 
-        }
-        else if (collider.gameObject == this.wallLeft)
-            normal = Vector2.right;
-        else if (collider.gameObject == this.wallRight)
-            normal = Vector2.left;
-
-        if (normal != Vector2.zero)
-        {
-            // Change direction
-            this.pongCollider.velocity = Vector2.Reflect(this.pongCollider.velocity, normal);
-
-            this.GetComponent<Glower>().StartGlow();
-            // sound.PlayOneShot(sound.clip);
-        }
-
-        // Handle scoring flags
-        if (collider.gameObject == this.wallLeft)
+        if (collision.gameObject == this.wallLeft)
             this.hitWallLeft = true;
-        else if (collider.gameObject == this.paddleLeft)
+        else if (collision.gameObject == this.paddleLeft)
             this.hitPaddleLeft = true;
-        else if (collider.gameObject == this.wallRight)
+        else if (collision.gameObject == this.wallRight)
             this.hitWallRight = true;
-        else if (collider.gameObject == this.paddleRight)
+        else if (collision.gameObject == this.paddleRight)
             this.hitPaddleRight = true;
+        else
+            // We hit a top/bottom wall
+            collision.gameObject.GetComponent<Glower>().StartGlow();
     }
 
-    // Adjust direction depending on wheter we hit the center or the edge of the paddle
+    // Adjust reflection direction depending on wheter we hit the center or the edge of the paddle
     void AdjustVelocityAfterPaddleHit(Vector2 paddlePos)
     {
         float yVel = this.transform.position.y - paddlePos.y;
-        float xVel = ClampAbsolute(1.1f * this.pongCollider.velocity.x, 50.0f);
+        float xVel = ClampAbsolute(1.1f * this.pongCollider.velocity.x, BASE_PONG_X_MAX_SPEED);
         Vector2 newVel = new Vector2(xVel, 5 * yVel);
         this.pongCollider.velocity = newVel;
     }
