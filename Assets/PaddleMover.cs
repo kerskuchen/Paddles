@@ -66,9 +66,9 @@ public class PaddleMover : MonoBehaviour
 
         float distance = pong.transform.position.y - this.transform.position.y;
         if (Mathf.Abs(distance) > paddleSize / 2)
-            this.aiAcc = Mathf.Lerp(this.aiAcc, Mathf.Sign(distance), 0.02f * multiplier);
+            this.aiAcc = Mathf.Lerp(this.aiAcc, Mathf.Sign(distance), 0.055f * multiplier);
         else
-            this.aiAcc = Mathf.Lerp(this.aiAcc, 0, 0.2f);
+            this.aiAcc = Mathf.Lerp(this.aiAcc, 0, 0.9f * multiplier);
         return this.aiAcc;
     }
 

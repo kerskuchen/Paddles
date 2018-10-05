@@ -12,6 +12,8 @@ public class MatchState : MonoBehaviour
     public PaddleMover paddleLeft;
     public PaddleMover paddleRight;
 
+    public bool matchFinished = false;
+
     int scoreCountLeft = 0;
     int scoreCountRight = 0;
 
@@ -26,6 +28,8 @@ public class MatchState : MonoBehaviour
 
     public void ResetMatch(bool isAiMatch)
     {
+        this.matchFinished = false;
+
         GameObject.Find("Pong").GetComponent<Glower>().FadeIn();
         this.isAiMatch = isAiMatch;
 
@@ -71,6 +75,7 @@ public class MatchState : MonoBehaviour
                 this.paddleLeft.SetAIActive(false);
                 this.paddleRight.SetAIActive(false);
                 this.winLose.text = "YOU LOST!";
+                this.matchFinished = true;
                 this.winLose.GetComponent<FontGlower>().StartGlow();
             }
         }
@@ -93,6 +98,7 @@ public class MatchState : MonoBehaviour
                 this.paddleLeft.SetAIActive(false);
                 this.paddleRight.SetAIActive(false);
                 this.winLose.text = "YOU WON!";
+                this.matchFinished = true;
                 this.winLose.GetComponent<FontGlower>().StartGlow();
             }
         }

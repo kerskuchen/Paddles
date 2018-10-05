@@ -40,7 +40,11 @@ public class GuiOverlay : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Return) && this.matchState.matchFinished)
+        {
+            FadeToMainMenu();
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
         {
             if (this.state == State.MainMenu)
             {
@@ -154,13 +158,13 @@ public class GuiOverlay : MonoBehaviour
             case Transition.ToGame:
                 matchState.ResetMatch(false);
                 yield return new WaitForSeconds(0.5f);
-                this.readySetGo.text = "READY";
+                this.readySetGo.text = "10 TO WIN";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();
                 this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
                 this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);
-                this.readySetGo.text = "SET";
+                this.readySetGo.text = "READY?";
                 this.readySetGo.GetComponent<FontGlower>().StartGlow();
                 this.paddleLeftGlower.StartGlow();
                 yield return new WaitForSeconds(0.5f);

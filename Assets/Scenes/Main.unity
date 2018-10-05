@@ -746,8 +746,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
   baseIntensity: 0
-  glowColor: {r: 1, g: 1, b: 1, a: 0}
-  glowIntensity: 0.7
+  glowColor: {r: 0.86, g: 0.86, b: 0.86, a: 0}
+  glowIntensity: 0.3
   glowTime: 0.5
   glowStartRatio: 0.1
 --- !u!1 &667547910
@@ -862,8 +862,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
   baseIntensity: 0
-  glowColor: {r: 1, g: 1, b: 1, a: 0}
-  glowIntensity: 0.7
+  glowColor: {r: 0.86, g: 0.86, b: 0.86, a: 0}
+  glowIntensity: 0.3
   glowTime: 0.5
   glowStartRatio: 0.1
 --- !u!1 &741873013
@@ -1229,6 +1229,7 @@ MonoBehaviour:
   winLose: {fileID: 1502892979}
   paddleLeft: {fileID: 1987075786}
   paddleRight: {fileID: 483749044}
+  matchFinished: 0
 --- !u!114 &880629976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,7 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
   baseIntensity: 0
-  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
+  glowColor: {r: 1, g: 0.6247068, b: 0, a: 1}
   glowIntensity: 1.5
   glowTime: 0.5
   glowStartRatio: 0.1
@@ -2060,7 +2061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 0.43718815, g: 0.5555248, b: 0.66400003, a: 0}
   baseIntensity: 0
-  glowColor: {r: 1, g: 0.44095588, b: 0, a: 1}
+  glowColor: {r: 1, g: 0.6247068, b: 0, a: 1}
   glowIntensity: 1.5
   glowTime: 0.5
   glowStartRatio: 0.1
