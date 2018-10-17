@@ -16,3 +16,5 @@ Running the project requires the following free Unity assets to be imported firs
 * [Post Processing Stack](https://assetstore.unity.com/packages/essentials/post-processing-stack-83912)
 
 After importing the assets, the Unity editor should be restarted before actually running the project.
+
+Last tested with Unity version 2018.2.10f1
